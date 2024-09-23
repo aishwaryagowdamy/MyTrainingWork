@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        h4 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        h6 {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .actions {
+            margin-top: 10px;
+        }
+
+        .actions a {
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #333;
+            color: white;
+        }
+
+        /* Additional Styling for the New Block */
+        .book-item {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .book-item h4 {
+            font-size: 1.3em;
+            color: #2c3e50;
+        }
+
+        .book-item h6 {
+            color: #7f8c8d;
+            font-size: 1em;
+        }
+
+        .book-item p {
+            font-size: 0.95em;
+            color: #34495e;
+        }
+
+        .book-item a {
+            margin-right: 10px;
+            font-size: 0.85em;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Book Collection</h1>
+    </header>
+
+    <main>
+        <h1>List of Books</h1>
+        <ul>
+            <li><a href="{% url 'book_create' %}">Create a new book</a></li>
+            
+            {% for book in object_list %}
+            <li class="book-item">
+                <h4><a href="{% url 'book_detail' book.pk %}">{{ book.title }} | {{ book.published_date }}</a></h4>
+                <h6>Author: {{ book.author }}</h6>
+                <p>{{ book.description }}</p>
+
+                <div class="actions">
+                    (<a href="{% url 'book_update' book.pk %}">Edit</a>)
+                    (<a href="{% url 'book_delete' book.pk %}">Delete</a>)
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- New Block -->
+        <ul>
+            <li>
+                <h4><a href = "{% url 'book_detail' book.pk %}">{{object.title}} | {{object.published_date}}</a></h4>
+                <a href = "{% url 'book_update' object.pk %}">Edit</a>
+                <a href = "{% url 'book_delete' object.pk %}">Delete</a>
+                <h6>{{object.author}}</h6>
+                <p>{{object.description}}</p>
+            </li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Book Management System</p>
+    </footer>
+
+</body>
+</html>
+
+
